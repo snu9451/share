@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- ==================================================== [[ 컨트롤러 영역 ]] ==================================================== -->
+<!-- 	<bean id="test-controller" class="test.mvc.TestController"> -->
+<!-- 		<property name="methodNameResolver" ref="test-resolver"/> -->
+<!-- 		<property name="testLogic" ref="test-logic"/> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="page-controller" class="page.mvc.PageController"> -->
+<!-- 		<property name="methodNameResolver" ref="page-resolver"/> -->
+<!-- 		<property name="pageLogic" ref="page-logic"/> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="member-controller" class="member.mvc.MemberController"> -->
+<!-- 		<property name="methodNameResolver" ref="member-resolver"/> -->
+<!-- 		<property name="memberLogic" ref="member-logic"/> -->
+<!-- 	</bean> -->
+	<!-- 인터셉터에 logic 클래스를 주입 -->
+<!-- 	<bean id="test-interceptor" class="test.mvc.TestInterceptor"> -->
+<!-- 		<property name="testLogic" ref="test-logic"/>	 -->
+<!-- 	</bean> -->
+<!-- 	<bean id="login-check-interceptor" class="com.util.LoginCheckInterceptor"> -->
+<!-- 		<property name="memberLogic" ref="member-logic"/>	 -->
+<!-- 	</bean> -->
+	
+	<!-- ========================================= [[ url과 컨트롤러 mapping ]] ========================================== -->
+	<!-- Url의 mapping이 이루어짐 -->
+<!-- 	<bean id="url-mapping"  -->
+<!-- 	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"> -->
+<!-- 		<property name="interceptors"> -->
+<!-- 			<list> -->
+<!-- 				<ref bean="test-interceptor"/> -->
+<!-- 				<ref bean="login-check-interceptor"/> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="mappings"> -->
+<!-- 			<props> -->
+<!-- 				================== [[ TEST ]] ================== -->
+<!-- 				<prop key="/member/test.nds">test-controller</prop> -->
+<!-- 				<prop key="/member/ajaxTest.nds">test-controller</prop> -->
+<!-- 				================== [[ PAGE ]] ================== -->
+<!-- 				<prop key="/page/page_index.nds">page-controller</prop> -->
+<!-- 				================== [[ MEMBER ]] ================== -->
+<!-- 				<prop key="/member/reqLoginView.nds">member-controller</prop> -->
+<!-- 				<prop key="/member/doLogin.nds">member-controller</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	<!-- ========================================= [[ url과 메소드 mapping ]] ========================================== -->
+<!-- 	<bean id="test-resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver"> -->
+<!-- 		<property name="mappings"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="/member/test.nds">test</prop> -->
+<!-- 				<prop key="/member/ajaxTest.nds">ajaxTest</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean>	 -->
+<!-- 	<bean id="page-resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver"> -->
+<!-- 		<property name="mappings"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="/page/page_index.nds">page</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean>	 -->
+<!-- 	<bean id="member-resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver"> -->
+<!-- 		<property name="mappings"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="/member/reqLoginView.nds">reqLoginView</prop> -->
+<!-- 				<prop key="/member/doLogin.nds">doLogin</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean>	 -->
+	<!-- ========================================= [[ 뷰(페이지) 접두/접미어 설정 ]] ========================================== -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+</beans>
+
+

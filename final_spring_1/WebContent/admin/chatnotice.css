@@ -1,0 +1,17 @@
+@charset "UTF-8";
+#teduri {
+    width: 350px;
+    height: 170px;
+    padding: 20px;
+    border: 1px solid red;
+    background: white;  }
+  
+  .content-box {
+    box-sizing: content-box;
+ 
+  }
+  
+  .border-box {
+    box-sizing: border-box;
+   
+  }

@@ -1,0 +1,48 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" name="viewport"
+	content="width=device-width, initial-scale=1.0" />
+  <!-- =============================================== ▼ ＳＣＲＩＰＴ  ▼ ================================================= -->
+  <%@ include file="../mainPage/source_h.jsp" %>
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <%@ include file="../mainPage/chatroom-script.jsp" %>
+  <!-- =============================================== ▲ ＳＣＲＩＰＴ ▲ ================================================= -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+<link rel="stylesheet" href="../mainPage/chatroom.css">
+<title></title>
+</head>
+<body>
+	<div class="wrapper">
+   		<div class="roomName">상대방</div>
+	        <div class="notice">
+	          <div>
+	            <i class="fas fa-arrow-circle-left"></i>
+	          </div>
+	          <div>
+	            <div>심부름 물픔 : insert here</div>
+	            <div>물품가 : insert here</div>
+	            <div>심부름 값 : insert here</div>
+	          </div>
+	          <div>
+	            <i class="fas fa-arrow-circle-right"></i>
+	          </div>
+	        </div>
+    	<div class="col s3">
+          	<!-- insert here : 대화 공지사항 -->
+          	<ul class="collection"></ul>
+       	</div>
+	    <div class="wrapper_input" align="center">
+	    	<input type="file" id="input_file" accept="image/*"/>
+	    	<img src="../mainPage/insert_photo.png" id="img_insert"/>
+		    <input id="input_msg" maxlength='200' onkeyup="if (window.event.keyCode == 13) sendMsg();">
+		    <button id="btn_msg">전송</button>
+	    </div>
+    </div>
+  <!-- =============================================== ▼ ＳＣＲＩＰＴ  ▼ ================================================= -->
+  <!-- =============================================== ▲ ＳＣＲＩＰＴ ▲ ================================================= -->
+</body>
+</html>

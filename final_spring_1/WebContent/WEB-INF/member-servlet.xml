@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- ==================================================== [[ 컨트롤러 영역 ]] 
+		==================================================== -->
+	<bean id="member-controller" class="member.mvc.MemberController">
+		<property name="methodNameResolver" ref="member-resolver" />
+		<property name="memberLogic" ref="member-logic"/>
+	</bean>
+	<!-- 인터셉터에 logic 클래스를 주입 -->
+	<bean id="auth-check-interceptor" class="nds.util.AuthInterceptor">
+		<property name="memberLogic" ref="member-logic"/>
+	</bean>
+	<bean id="login-check-interceptor" class="nds.util.LoginCheckInterceptor">
+		<property name="memberLogic" ref="member-logic"/>
+	</bean>
+	<!-- ========================================= [[ url과 컨트롤러 mapping ]] ========================================== -->
+	<!-- Url의 mapping이 이루어짐 -->
+	<bean id="member-url-mapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="auth-check-interceptor"/>
+				<ref bean="login-check-interceptor"/>
+			</list>
+		</property>
+		<property name="mappings">
+			<props>			
+				<prop key="/member/reqLoginView.nds">member-controller</prop>
+				<prop key="/mainPage/reqJoinView.nds">member-controller</prop>
+				<prop key="/member/selectNickName.nds">member-controller</prop>
+				<prop key="/member/selectEmail.nds">member-controller</prop>
+				<prop key="/member/updateNickName.nds">member-controller</prop>
+				<prop key="/member/updateImg.nds">member-controller</prop>
+				<prop key="/member/updatePw.nds">member-controller</prop>
+				<prop key="/member/chargeCoin.nds">member-controller</prop>
+				<prop key="/member/withdrawCoin.nds">member-controller</prop>
+				<prop key="/member/sendCode.nds">member-controller</prop>
+				<prop key="/member/sendSMSCode.nds">member-controller</prop>
+				<prop key="/member/issueTempPw.nds">member-controller</prop>
+				<prop key="/member/doLogin.nds">member-controller</prop>
+				<prop key="/member/doLogout.nds">member-controller</prop>
+				<prop key="/member/leave.nds">member-controller</prop>
+				<prop key="/member/join.nds">member-controller</prop>
+				<prop key="/member/insertMember.nds">member-controller</prop>
+				<prop key="/member/deleteMyLike.nds">member-controller</prop>
+				<prop key="/member/selectMyTrade.nds">member-controller</prop>
+				<prop key="/member/deleteTradeRec.nds">member-controller</prop>
+				<prop key="/member/insertCoinTrans.nds">member-controller</prop>
+				<prop key="/member/updateMemberCoin.nds">member-controller</prop>
+				<prop key="/member/starRatingGrant.nds">member-controller</prop>
+				<prop key="/member/doLoginAndroid.nds">member-controller</prop>
+				<!-- ================== [[ 페이지 요청 url ]] ================== -->
+				<prop key="/myPage/my_info.nds">member-controller</prop>
+				<prop key="/member/selectUser.nds">member-controller</prop>
+				<prop key="/myPage/my_wallet.nds">member-controller</prop>
+				<prop key="/myPage/my_like.nds">member-controller</prop>
+				<prop key="/myPage/my_trade.nds">member-controller</prop>
+				<prop key="/myPage/my_errand.nds">member-controller</prop>
+				<prop key="/mainPage/main_page.nds">member-controller</prop>
+				<prop key="/member/jsonSelectMember.nds">member-controller</prop>
+				<!-- ================== [[ 페이지 요청 url ]] ================== -->
+				<!-- ================== [[ 테스트용 url ]] ================== -->
+				<prop key="/member/getAuth.nds">member-controller</prop>
+				<prop key="/member/showEmail.nds">member-controller</prop>
+				<prop key="/member/membertest.nds">member-controller</prop>
+				<!-- <prop key="/member/reqLoginView.nds">member-controller</prop> -->
+				<prop key="/member/ajaxHtml.nds">member-controller</prop>
+				<!-- ================== [[ 테스트용 url ]] ================== -->
+			</props>
+		</property>
+	</bean>
+	<!-- ========================================= [[ url과 메소드 mapping ]] ========================================== -->
+	<bean id="member-resolver"
+		class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/member/reqLoginView.nds">reqLoginView</prop>
+				<prop key="/mainPage/reqJoinView.nds">reqJoinView</prop>
+				<prop key="/member/selectNickName.nds">selectNickName</prop>
+				<prop key="/member/selectEmail.nds">selectEmail</prop>
+				<prop key="/member/updateNickName.nds">updateNickName</prop>
+				<prop key="/member/updateImg.nds">updateImg</prop>
+				<prop key="/member/updatePw.nds">updatePw</prop>
+				<prop key="/member/chargeCoin.nds">chargeCoin</prop>
+				<prop key="/member/withdrawCoin.nds">withdrawCoin</prop>
+				<prop key="/member/sendCode.nds">sendCode</prop>
+				<prop key="/member/sendSMSCode.nds">sendSMSCode</prop>
+				<prop key="/member/issueTempPw.nds">issueTempPw</prop>
+				<prop key="/member/doLogin.nds">doLogin</prop>
+				<prop key="/member/doLogout.nds">doLogout</prop>
+				<prop key="/member/leave.nds">leave</prop>
+				<prop key="/member/join.nds">join</prop>
+				<prop key="/member/insertMember.nds">insertMember</prop>
+				<prop key="/member/deleteMyLike.nds">deleteMyLike</prop>
+				<prop key="/member/selectMyTrade.nds">selectMyTrade</prop>
+				<prop key="/member/deleteTradeRec.nds">deleteTradeRec</prop>
+				<prop key="/member/insertCoinTrans.nds">insertCoinTrans</prop>
+				<prop key="/member/updateMemberCoin.nds">updateMemberCoin</prop>
+				<prop key="/member/starRatingGrant.nds">starRatingGrant</prop>
+				<prop key="/member/doLoginAndroid.nds">doLoginAndroid</prop>
+				<!-- ================== [[ 페이지 이동 url ]] ================== -->
+				<prop key="/myPage/my_info.nds">selectMember</prop>
+				<prop key="/member/selectUser.nds">selectUser</prop>
+				<prop key="/myPage/my_wallet.nds">getMyWallet</prop>
+				<prop key="/myPage/my_like.nds">getMyLike</prop>
+				<prop key="/myPage/my_trade.nds">getMyTrade</prop>
+				<prop key="/myPage/my_errand.nds">getMyErrand</prop>
+				<prop key="/mainPage/main_page.nds">getMainPage</prop>
+				<prop key="/member/jsonSelectMember.nds">jsonSelectMember</prop>
+				<!-- ================== [[ 페이지 이동 url ]] ================== -->
+				<!-- ================== [[ 테스트용 url ]] ================== -->
+				<prop key="/member/getAuth.nds">getAuth</prop>
+				<prop key="/member/showEmail.nds">showEmail</prop>
+				<prop key="/member/membertest.nds">membertest</prop>
+				<prop key="/member/ajaxHtml.nds">ajaxHtml</prop>
+				<!-- ================== [[ 테스트용 url ]] ================== -->
+			</props>
+		</property>
+	</bean>
+</beans>

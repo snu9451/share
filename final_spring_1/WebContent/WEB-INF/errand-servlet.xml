@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:beans="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+      http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+   <!-- ==================================================== [[ 컨트롤러 영역 ]] 
+      ==================================================== -->
+   <bean id="errand-controller" class="errand.mvc.ErrandController">
+      <property name="methodNameResolver" ref="errand-resolver" />
+      <property name="errandLogic" ref="errand-logic"/>
+   </bean>
+   <!-- ========================================= [[ url과 컨트롤러 mapping ]] ========================================== -->
+   <!-- Url의 mapping이 이루어짐 -->
+   <bean id="errand-url-mapping"
+      class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+      <property name="mappings">
+         <props>
+            <prop key="/errand/selectErrandRecord.nds">errand-controller</prop>
+            <prop key="/errand/errandRecordUpdate.nds">errand-controller</prop>
+            <prop key="/errand/insertErrand.nds">errand-controller</prop>
+            <prop key="/errand/insertErrandDenied.nds">errand-controller</prop>
+            <prop key="/errand/insertErrandInfo.nds">errand-controller</prop>
+            <prop key="/errand/jsonGetErrand.nds">errand-controller</prop>
+            <prop key="/errand/jsonGetErrandInfo.nds">errand-controller</prop>
+            <prop key="/errand/updateErrandInfo.nds">errand-controller</prop>
+            <prop key="/errand/updateErrandItemPriceNds.nds">errand-controller</prop>
+            <prop key="/errand/updateErrandFinish.nds">errand-controller</prop>
+         </props>
+      </property>
+   </bean>
+   <!-- ========================================= [[ url과 메소드 mapping ]] ========================================== -->
+   <bean id="errand-resolver"
+      class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+      <property name="mappings">
+         <props>
+            <prop key="/errand/selectErrandRecord.nds">selectErrandRecord</prop>
+            <prop key="/errand/errandRecordUpdate.nds">errandRecordUpdate</prop>
+            <prop key="/errand/insertErrand.nds">insertErrand</prop>
+            <prop key="/errand/insertErrandDenied.nds">insertErrandDenied</prop>
+            <prop key="/errand/insertErrandInfo.nds">insertErrandInfo</prop>
+            <prop key="/errand/jsonGetErrand.nds">jsonGetErrand</prop>
+            <prop key="/errand/jsonGetErrandInfo.nds">jsonGetErrandInfo</prop>
+            <prop key="/errand/updateErrandInfo.nds">updateErrandInfo</prop>
+            <prop key="/errand/updateErrandItemPriceNds.nds">updateErrandItemPriceNds</prop>
+            <prop key="/errand/updateErrandFinish.nds">updateErrandFinish</prop>
+         </props>
+      </property>
+   </bean>
+</beans>

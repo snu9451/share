@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- ==================================================== [[ 컨트롤러 영역 ]] ==================================================== -->
+	<bean id="item-controller" class="item.mvc.ItemController">
+		<property name="methodNameResolver" ref="item_resolver"/>
+		<property name="itemLogic" ref="item_logic"/>
+	</bean>
+	<!-- 인터셉터에 logic 클래스를 주입 -->
+	<bean id="auth-check-interceptor" class="nds.util.AuthInterceptor">
+		<property name="memberLogic" ref="member-logic"/>
+	</bean>
+	<bean id="login-check-interceptor" class="nds.util.LoginCheckInterceptor">
+		<property name="memberLogic" ref="member-logic"/>
+	</bean>
+	<!-- ========================================= [[ url과 컨트롤러 mapping ]] ========================================== -->
+	<!-- Url의 mapping이 이루어짐 -->
+	<bean id="item-url-mapping" 
+	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="auth-check-interceptor"/>
+				<ref bean="login-check-interceptor"/>
+			</list>
+		</property>
+		<property name="mappings">
+		
+			<props>
+				<prop key="/item/selectItemList.nds">item-controller</prop>
+				<prop key="/item/andselectItemList.nds">item-controller</prop>
+				<prop key="/item/selectByCategory.nds">item-controller</prop> 
+				<prop key="/item/selectBySearch.nds">item-controller</prop>
+				<prop key="/item/andselectBySearch.nds">item-controller</prop>
+				<prop key="/item/updateItem.nds">item-controller</prop>        
+				<prop key="/item/selectItemDetail.nds">item-controller</prop>
+				<prop key="/item/andselectItemDetail.nds">item-controller</prop>
+				<prop key="/item/editItem.nds">item-controller</prop>     <!-- 아이템 삭제랑 아이템 올리는 거랑 좋아요 -->
+				<prop key="/item/deleteItem.nds">item-controller</prop>
+				<prop key="/item/andDeleteItem.nds">item-controller</prop>
+				<prop key="/item/updateItemConfirm.nds">item-controller</prop>
+				<prop key="/item/likeItem.nds">item-controller</prop>
+				<prop key="/item/insertComment.nds">item-controller</prop>
+				<prop key="/item/andInsertComment.nds">item-controller</prop>
+				<prop key="/item/deleteComment.nds">item-controller</prop> 
+				<prop key="/item/andDeleteComment.nds">item-controller</prop>
+				<prop key="/item/updateComment.nds">item-controller</prop>      
+				<prop key="/item/insertItem.nds">item-controller</prop> 
+			</props>
+		</property>
+	</bean>
+	<!-- ========================================= [[ url과 메소드 mapping ]] ========================================== -->
+	<bean id="item_resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/item/selectItemList.nds">selectItemList</prop>
+				<prop key="/item/andselectItemList.nds">andSelectItemList</prop>
+				<prop key="/item/selectByCategory.nds">selectByCategory</prop>
+				<prop key="/item/selectBySearch.nds">selectBySearch</prop>
+				<prop key="/item/andselectBySearch.nds">andSelectBySearch</prop>
+				<prop key="/item/updateItem.nds">updateItem</prop>
+				<prop key="/item/selectItemDetail.nds">selectItemDetail</prop>
+				<prop key="/item/andselectItemDetail.nds">andSelectItemDetail</prop>
+				<prop key="/item/editItem.nds">editItem</prop>
+				<prop key="/item/deleteItem.nds">deleteItem</prop>
+				<prop key="/item/andDeleteItem.nds">andDeleteItem</prop>
+				<prop key="/item/updateItemConfirm.nds">updateItemConfirm</prop>
+				<prop key="/item/likeItem.nds">likeItem</prop>
+				<prop key="/item/insertComment.nds">insertComment</prop>
+				<prop key="/item/andInsertComment.nds">andInsertComment</prop>
+				<prop key="/item/deleteComment.nds">deleteComment</prop>
+				<prop key="/item/andDeleteComment.nds">andDeleteComment</prop>
+				<prop key="/item/updateComment.nds">updateComment</prop>
+				<prop key="/item/insertItem.nds">insertItem</prop>
+			</props>
+		</property>
+	</bean>	
+   <!-- ========================================= [[ 뷰(페이지) 접두/접미어 설정 ]] ========================================== -->
+</beans>

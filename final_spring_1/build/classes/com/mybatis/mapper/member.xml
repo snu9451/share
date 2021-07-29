@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.MemberMapper">
+
+<!-- ==================================== [[ ＳＥＬＥＣＴ ]] ==================================== -->
+	<select id="selectNickName" parameterType="map" resultType="map">
+		SELECT mem_email, mem_img, mem_nickname, mem_pw, mem_gender, mem_age, mem_create_date, issocial, mem_active, mem_star, coin_remain, mem_phone, mem_paypw, mem_errand_mode, mem_star_num
+		  FROM member
+		 WHERE mem_nickname = #{mem_nickname}
+	</select>
+	<select id="selectEmail" parameterType="map" resultType="map">
+		SELECT mem_email, mem_img, mem_nickname, mem_pw, mem_gender, mem_age, mem_create_date, issocial, mem_active, mem_star, coin_remain, mem_phone, mem_paypw, mem_errand_mode, mem_star_num
+		  FROM member
+		 WHERE mem_email = #{mem_email}
+	</select>
+	<select id="selectMember" parameterType="map" resultType="map">
+		SELECT mem_email, mem_img, mem_nickname, mem_pw, mem_gender, mem_age, mem_create_date, issocial, mem_active, mem_star, coin_remain, mem_phone, mem_paypw, mem_errand_mode, mem_star_num
+		  FROM member
+		 WHERE mem_email = #{mem_email}
+		   AND mem_pw = #{mem_pw}
+	</select>
+	<select id="selectMemberAdmin" parameterType="map" resultType="map">
+		SELECT mem_email, mem_img, mem_nickname, mem_pw, mem_gender, mem_age, mem_create_date, issocial, mem_active, mem_star, coin_remain, mem_phone, mem_paypw, mem_errand_mode, mem_star_num
+		  FROM member
+		 WHERE mem_email = #{mem_email}
+	</select>
+	<select id="selectIsMember" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM member
+		 WHERE mem_email = #{mem_email}
+		   AND mem_pw = #{mem_pw}
+	</select>
+	<select id="selectIsMemberPw" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM member
+		 WHERE mem_email = #{mem_email}
+	</select>
+	<select id="selectOneBySession" parameterType="map" resultType="map">
+		SELECT *
+  		  FROM nds_session
+	     WHERE mem_sessionid = #{mem_sessionid}
+       	   AND TO_DATE (sid_expired, 'YYYY-MM-DD HH24:MI:SS') - SYSDATE > 0
+	</select>
+	<select id="myWalletRecord" parameterType="map" resultType="map">
+		 SELECT TRANS_DATE, TRANS_CONTENT, TRANS_PRICE, TRANS_REMAIN, DECODE(TRANS_IO,'i','입금','출금') as TRANS_IO
+		   FROM coin_trans
+		  WHERE mem_email= #{mem_email}
+	   ORDER BY trans_date DESC
+	</select>
+	<select id="jsonSelectMember" parameterType="map" resultType="map">
+		SELECT mem_email, mem_img, mem_nickname, mem_pw, mem_gender, mem_age, mem_create_date, issocial, mem_active, mem_star, coin_remain, mem_phone, mem_paypw, mem_errand_mode, mem_star_num
+		  FROM member
+		 WHERE 
+		<if test='mem_email!=null'>mem_email LIKE #{mem_email} || '%'</if>
+		<if test='mem_nickname!=null'>mem_nickname LIKE #{mem_nickname} || '%'</if>
+	</select>
+	<select id="proc_my_like"  statementType="CALLABLE" parameterType="java.util.Map">
+	   {CALL proc_my_like(#{pr_MEM_EMAIL}
+	                  , #{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+	</select>
+	<!-- 중고거래 내역 조회 -->
+	<select id="getMyTrade" parameterType="map" resultType="map">
+		select b.bm_no, b.bm_title, b.bm_date, b.bm_content, b.bm_price, b.bm_status, b.seller_nickname, b.buyer_nickname
+	       ,img.bi_file
+	    from board_master b, (select min(bi_no) bi_no, bm_no, min(bi_file) bi_file from board_img group by bm_no) img
+	<if test='buyer_nickname!=null'>
+		WHERE buyer_nickname = #{buyer_nickname}
+		and b.buyer_isshow = 'T'
+		and b.bm_no = img.bm_no
+		order by b.bm_no asc
+	</if>
+	<if test='seller_nickname!=null'>
+		WHERE seller_nickname = #{seller_nickname}
+		and b.seller_isshow = 'T'
+		and b.bm_no = img.bm_no
+		order by b.bm_no asc		
+	</if>
+	</select>
+	<select id="selectUserErrand" parameterType="map" resultType="map">
+		SELECT COUNT(errand_status) FROM errand
+		WHERE mem_email_req = #{mem_email}
+		  AND errand_status = 'S'
+		UNION ALL
+	   SELECT COUNT(errand_status) FROM errand
+		WHERE mem_email_nds = #{mem_email}
+		  AND errand_status = 'S'
+	</select>
+	<select id="selectUserSellList" parameterType="map" resultType="map">
+       SELECT b.bm_no, b.bm_title, b.bm_date, b.bm_content, b.bm_price, b.bm_status, b.seller_nickname, b.buyer_nickname
+           ,img.bi_file
+        FROM board_master b, (select min(bi_no) bi_no, bm_no, min(bi_file) bi_file from board_img group by bm_no) img
+       WHERE seller_nickname = #{mem_nickname}
+         AND b.seller_isshow = 'T'
+         AND b.bm_no = img.bm_no
+    ORDER BY b.bm_date DESC        
+	</select>
+	<select id="searchRank" statementType="CALLABLE" parameterType="java.util.Map">
+      {call PROC_SEARCH_WORDS_RANK(#{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+   </select>
+	
+	
+<!-- ==================================== [[ ＵＰＤＡＴＥ ]] ==================================== -->
+	<select id="updatePw" statementType="CALLABLE" parameterType="map">
+		{call PROC_MEM_PW(#{mem_email, mode=IN, jdbcType=VARCHAR},#{mem_pw, mode=IN, jdbcType=VARCHAR},#{change_pw, mode=IN, jdbcType=VARCHAR},#{result, mode=OUT, jdbcType=NUMERIC})}
+	</select>
+	<select id="updateActive" statementType="CALLABLE" parameterType="map">
+		{call PROC_MEM_ACTIVE(#{mem_email, mode=IN, jdbcType=VARCHAR},#{mem_pw, mode=IN, jdbcType=VARCHAR},#{result, mode=OUT, jdbcType=NUMERIC})}
+	</select>
+	<update id="updateMember" parameterType="map">
+		UPDATE member
+		<set>
+			<if test='mem_nickname!=null'>mem_nickname = #{mem_nickname}</if>
+			<if test='change_img!=null'>mem_img = #{change_img}</if>
+			<if test='coin_remain!=null'>coin_remain = #{coin_remain}</if>
+			<if test='coin!=null'>coin_remain = coin_remain + #{coin}</if>
+		</set>
+		 WHERE mem_email LIKE #{mem_email} || '%'
+	</update>
+	<update id="my_like_change" statementType="CALLABLE" parameterType="map">
+	   {CALL proc_my_like_change(#{pr_MEM_EMAIL}, #{pr_BM_NO}
+	                  , #{i_like, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+	</update>
+   <update id="star_rating_1" parameterType="map">
+        UPDATE member
+           SET mem_star_num = mem_star_num+'1'
+          WHERE mem_email = #{mem_email}
+   </update>
+   <update id="star_rating_2" parameterType="map">
+         UPDATE member
+            SET mem_star = ((mem_star * (mem_star_num -1))+ #{rating}) / mem_star_num
+        WHERE mem_email = #{mem_email}
+   </update>
+<!-- ==================================== [[ ＩＮＳＥＲＴ ]] ==================================== -->
+	<insert id="insertMember">
+		INSERT INTO member(mem_email, mem_img, mem_nickname, mem_pw, mem_gender, mem_age, mem_create_date, issocial, mem_active, mem_star, coin_remain, mem_phone, mem_errand_mode ,mem_star_num)
+		VALUES(#{mem_email}, '1.png', #{mem_nickname}, #{mem_pw}, #{mem_gender}, #{mem_age}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), 'F', 'T', 0, 0, #{mem_phone}, 'R', 0)
+	</insert>
+	<insert id="insertCoinTrans">
+		INSERT INTO coin_trans
+     	VALUES (SEQ_COIN_TRANS.NEXTVAL, #{mem_email}, TO_CHAR (SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), #{trans_content}, #{trans_price}, #{trans_remain}, #{trans_io})
+	</insert>
+<!-- ==================================== [[ ＤＥＬＥＴＥ ]] ==================================== -->
+	<delete id="my_like_delete" parameterType="map">
+	     DELETE 
+	       FROM MY_LIKE
+     	  WHERE MEM_EMAIL = #{mem_email} 
+     	    AND BM_NO = #{bm_no}
+	</delete>
+	<select id="deleteTradeRec" statementType="CALLABLE" parameterType="java.util.Map">
+		{call PROC_BOARD_MASTER_DELETE(#{br_sel_buy}, #{pr_bm_no})}
+	</select>
+
+<!-- ==================================== [[ Ｅ　Ｌ　Ｓ　Ｅ ]] ==================================== -->
+
+	<select id="uiToSession" statementType="CALLABLE" parameterType="map">
+		{call PROC_SESSION_MGR(#{mem_email, mode=IN, jdbcType=VARCHAR},#{mem_pw, mode=IN, jdbcType=VARCHAR},#{mem_sessionid, mode=IN, jdbcType=VARCHAR},#{imsi_sessionid, mode=IN, jdbcType=VARCHAR},#{auth_range, mode=IN, jdbcType=CHAR},#{result, mode=OUT, jdbcType=NUMERIC})}
+	</select>
+</mapper>

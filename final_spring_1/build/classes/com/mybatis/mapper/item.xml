@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.ItemMapper">
+ <resultMap type="map" id="itemVO" />
+
+   <!-- 1  최근상품,인기상품 가져오기 -->
+   <select id="proc_board_main" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_board_main(#{pr_choice}
+                     , #{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+   </select>
+   
+   <!-- 2 사용자가 카테고리메뉴에서 카테고리 선택 시 -->
+   <select id="proc_board_main_categori" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_board_main_categori(#{pr_categori},#{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+   </select>
+   
+   <!-- 3 검색어를 입력하여 찾기 -->
+   <select id="proc_board_search" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_board_search(#{pr_search_order}
+      				 , #{pr_search}
+                     , #{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+   </select>
+   
+   <!-- 4 사용자가 상품 수정 버튼 클릭 시 상품의 정보를 다 가져와야하니까 있음 - 정보만 -->
+   <select id="editItemContext" resultType="map" parameterType="int">
+      select BM_NO, BM_TITLE, BM_PRICE, CATEGORY_NAME, BM_CONTENT, BM_HIT  
+	  from BOARD_MASTER 
+      where bm_no=#{pr_bm_no}
+   </select>
+   
+   <!-- 5 사용자가 상품 수정 버튼 클릭 시 상품의 정보를 다 가져와야하니까 있음 - 사진만 -->
+   <select id="editItemImg" resultType="String" parameterType="int">
+      select BI_FILE
+	  from BOARD_IMG  
+	  where bm_no=#{pr_bm_no}
+	  order by BI_NO
+   </select>
+   
+   <!-- 6-1 상품 정보 저장 -->
+   <select id="proc_board_update" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_board_update(#{pr_BM_TITLE}
+                     , #{pr_BM_CONTENT}, #{pr_BM_PRICE}
+                     , #{pr_bm_no}, #{pr_CATEGORY_NAME})}
+   </select>
+   
+   <!-- 6-2 이미지 삭제 -->
+   <delete id="itemImgdelete"  parameterType="int">
+   		delete from board_img
+   		where bm_no=#{pr_bm_no}
+   </delete>
+
+   <!-- 7 상품의 내용만 가져옴 - 사용자가 상품하나를 자세히 볼 때 -->
+   <select id="proc_board_select"  statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_board_select(#{pr_MEM_EMAIL}
+      				 , #{pr_bm_no}
+                     , #{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+   </select>
+   
+   <!-- 7-1 댓글들 가져오기 -->
+   <select id="proc_board_select_comments"  statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_board_select_comments(#{pr_bm_no}
+                     , #{pr_nickName}
+                     , #{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+   </select>
+   
+   <!-- 8 상품 삭제 시 -->
+   <select id="proc_board_master_delete" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_board_master_delete(#{br_sel_buy}, #{pr_bm_no})}
+   </select>
+   
+   <!-- 9 상품 판매 완료 처리  -->
+   <select id="proc_board_bm_status" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_board_bm_status(#{pr_bm_no}
+      				           , #{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+   </select>
+   
+   <!-- 10 상품 찜하기  -->
+   <select id="proc_my_like_change" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_my_like_change(#{pr_MEM_EMAIL}
+      				 , #{pr_bm_no}
+                      , #{i_like, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+   </select>
+   
+   <!-- 11 댓글 달기. 대댓글 달기  -->
+   <select id="proc_comment_insert" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_comment_insert(#{pr_comment_msg}
+      				 , #{pr_comment_group}
+                     , #{pr_comment_pos}, #{pr_mem_nickname} , #{pr_bm_no}
+                     , #{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                     , #{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+   </select>
+
+   <!-- 12 댓글 or 대댓글 삭제  -->
+   <select id="proc_comment_delete" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_comment_delete(#{pr_comment_step}
+                              , #{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+   </select>
+   
+   <!-- 13 댓글 or 대댓글 수정  -->
+   <select id="proc_comment_update" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_comment_update(#{pr_comment_msg}
+      				 , #{pr_comment_step}
+                     , #{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+   </select>
+   
+   <!-- 14-1 사용자가 상품을 등록 시에 -->
+   <select id="proc_board_insert" statementType="CALLABLE" parameterType="java.util.Map">
+      {CALL proc_board_insert(#{pr_BM_TITLE}
+                     , #{pr_BM_CONTENT},#{pr_BM_PRICE},#{pr_SELLER_NICKNAME},#{pr_CATEGORY_NAME}
+                     , #{result , mode=OUT, jdbcType=INTEGER, javaType=int})}
+   </select>
+
+   
+   <!-- 14-2 사용자가 상품을 등록 시에 -->
+	<insert id="edit" parameterType="java.util.Map">
+		insert into board_img(bi_no, bm_no, bi_file, bi_size) values
+		(seq_board_img.nextval, #{bm_no}, #{bi_file}, #{bi_size})
+	</insert>
+	
+	<select id="rankList" statementType="CALLABLE" parameterType="java.util.Map">
+      {call PROC_SEARCH_WORDS_RANK(#{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=itemVO})}
+   </select>
+	
+
+   
+
+
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.errand">
+<!-- ==================================== 심부름 내역보기 Select문 ==================================== -->
+    <select id="selectErrand" parameterType="map" resultType="map">
+       SELECT er.errandkey, er.errand_status, SUBSTR(er.errand_request_date, 1,10) errand_request_date, 
+       		  er.errand_content, er.errand_total_price, er.mem_email_nds, er.mem_email_req, mb.mem_nickname, er.errand_item
+ 		 FROM Errand er, MEMBER mb
+      <if test='mem_email_req!=null'>
+        WHERE mb.mem_email = er.mem_email_nds 
+          AND er.req_isshow = 'T' 
+          AND mem_email_req = #{mem_email_req}
+      </if>
+      <if test='mem_email_nds!=null'>
+        WHERE mb.mem_email = er.mem_email_req 
+          AND er.nds_isshow = 'T' 
+          AND mem_email_nds = #{mem_email_nds}
+      </if>
+     ORDER BY errand_request_date desc
+   </select>
+   <select id="jsonGetErrand" parameterType="map" resultType="map">
+	SELECT errandKey, errand_item, errand_price, errand_item_price_nds, mem_email_req, mem_email_nds, errand_status
+	  FROM errand
+	 WHERE
+	 <if test='errandKey==null'>
+	     	  mem_email_nds LIKE #{mem_email} || '%' AND mem_email_req LIKE #{dest_email} || '%'
+	       OR mem_email_nds LIKE #{dest_email} || '%' AND mem_email_req LIKE #{mem_email} || '%'
+	 </if>
+	 <if test='errandKey!=null'>
+	 		  errandKey = #{errandKey}
+	 </if>
+	 ORDER BY ERRAND_START_DATE
+   </select>
+   <select id="jsonGetErrandInfo" parameterType="map" resultType="map">
+	SELECT check_first, check_second
+	  FROM errand_info
+	 WHERE errandKey = #{errandKey}
+   </select>
+<!-- ==================================== 심부름 내역보기 Select문 ==================================== -->
+<!-- ==================================== 심부름 내역보기 Insert문 ==================================== -->
+<!-- /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/작성자:신우형\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ -->
+				<!-- 심부름 insert하는 프로시저용 쿼리문 작성 -->
+<insert id="insertErrand" parameterType="map">
+	INSERT INTO errand (errandKey, errand_item,	errand_request_date, errand_start_date,
+	                    errand_item_price_req, errand_price, errand_total_price, errand_content,
+	                    errand_status, mem_email_req, mem_email_nds, errand_lat, errand_lon,
+	                    req_isShow, nds_isShow)
+	     		VALUES (#{errandKey}, #{errand_item}, #{errand_request_date}, #{errand_start_date},
+	                    #{errand_item_price_req}, #{errand_price}, #{errand_total_price}, #{errand_content},
+	                    #{errand_status}, #{mem_email_req}, #{mem_email_nds}, #{errand_lat}, #{errand_lon},
+	                    #{req_isShow}, #{nds_isShow})
+</insert>
+<insert id="insertErrandDenied" parameterType="map">
+	INSERT INTO his_errand_denied  (errandKey, errand_denied_date, errand_deny_msg)
+				     		VALUES (#{errandKey}, #{errand_denied_date}, #{errand_deny_msg})
+</insert>
+<insert id="insertErrandInfo" parameterType="map">
+	INSERT INTO errand_info  (errandKey, check_first, check_second)
+				     VALUES (#{errandKey}, 'F', 'F')
+</insert>
+						<!-- 확인했으면 주석을 지우셔도 됩니다. -->
+<!-- \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ -->
+<!-- ==================================== 심부름 내역보기 Insert문 ==================================== -->
+<!-- ==================================== 심부름 내역보기 Update문 ==================================== -->
+   <update id="errandRecordUpdate" parameterType="map">
+       UPDATE errand
+      <if test='mem_email_req!=null'>
+          SET req_isshow = 'F'
+        Where errandKey = #{errandKey}
+          AND mem_email_req = #{mem_email_req}
+      </if>
+      <if test='mem_email_nds!=null'>
+          SET nds_isshow = 'F'
+        Where errandKey = #{errandKey}
+          AND mem_email_nds = #{mem_email_nds}
+      </if>
+   </update>
+   <update id="updateErrandInfo" parameterType="map">
+	UPDATE errand_info
+	   SET 
+	   <if test='check_type=="check_first"'>
+	    check_first = #{check_val},
+	   	CHECK_FIRST_TIME = TO_CHAR(sysdate, 'YYYY/MM/DD HH24:MI:SS')
+	   </if>
+	   <if test='check_type=="check_second"'>
+	    check_second = #{check_val},
+	   	CHECK_SECOND_TIME = TO_CHAR(sysdate, 'YYYY/MM/DD HH24:MI:SS')
+	   </if>
+	 WHERE errandKey = #{errandKey}
+   </update>
+   <update id="updateErrandItemPriceNds" parameterType="map">
+	UPDATE errand
+	   SET errand_item_price_nds = #{errand_item_price_nds}
+	 WHERE errandKey = #{errandKey}
+   </update>
+   <update id="updateErrandFinish" parameterType="map">
+	UPDATE errand
+	   SET errand_item_price_fin = errand_item_price_nds,
+	   	   errand_finish_date = TO_CHAR(sysdate, 'YYYY/MM/DD HH24:MI:SS'),
+	   	   errand_status = 'S'
+	 WHERE errandKey = #{errandKey}
+   </update>
+<!-- ==================================== 심부름 내역보기 Update문 ==================================== -->
+</mapper>

@@ -1,0 +1,1150 @@
+/**
+* Template Name: BizLand - v1.2.1
+* Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+:root {
+  --main-color: #ffc37b;
+  --sub-color: #627ea4;
+}
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #444444;
+  overflow-y:scroll;
+}
+
+a {
+  color: #fff;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 100px;
+  font-family: "Cafe24SsurroundAir";
+}
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Cafe24SsurroundAir";
+}
+
+/**************************** 한글 폰트 ***************************/
+
+/* 헤더 타이틀 */
+@font-face {
+  font-family: "WandohopeB";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/WandohopeB.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* navbar 메뉴 */
+@font-face {
+  font-family: "Cafe24SsurroundAir";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.test__img {
+  margin-right: 5px;
+}
+
+.msg__font {
+  font-size: 10px;
+}
+
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #fff;
+}
+
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid orange;
+  border-top-color: #e2eefd;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: animate-preloader 1s linear infinite;
+  animation: animate-preloader 1s linear infinite;
+}
+
+@-webkit-keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+  position: fixed;
+  display: none;
+  right: 15px;
+  bottom: 15px;
+  z-index: 99999;
+}
+
+.back-to-top i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background: var(--main-color);
+  transition: all 0.4s;
+}
+
+.back-to-top i:hover {
+  background: var(--sub-color);
+  color: white;
+}
+
+/*--------------------------------------------------------------
+# Disable aos animation delay on mobile devices
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
+}
+
+/*--------------------------------------------------------------
+# 심부름 on / off 스위치 버튼
+--------------------------------------------------------------*/
+input[type="checkbox"] {
+  display: none;
+}
+
+.label__on-off {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  width: 58px;
+  height: 26px;
+  border: 1px solid white;
+  -webkit-border-radius: 13px;
+  -moz-border-radius: 13px;
+  border-radius: 13px;
+  background-color: var(--sub-color);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  margin-bottom: -0.5rem;
+}
+
+.label__on-off > * {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  font-size: 14px;
+}
+
+.label__on-off .marble {
+  position: absolute;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.label__on-off .on {
+  display: none;
+  padding-left: 12px;
+}
+
+.label__on-off .off {
+  padding-left: 30px;
+  line-height: 25px;
+}
+
+.input__on-off:checked + .label__on-off {
+  background-color: var(--main-color);
+}
+
+.input__on-off:checked + .label__on-off .on {
+  display: inline-block;
+}
+
+.input__on-off:checked + .label__on-off .off {
+  display: none;
+}
+
+.input__on-off:checked + .label__on-off .marble {
+  left: 33px;
+}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+  opacity: 1;
+  transition: all 0.5s;
+  z-index: 997;
+  padding: 5px 0;
+  background-color: var(--sub-color);
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#header.header-scrolled {
+  background: var(--sub-color);
+  top: 0;
+  padding: 15px;
+}
+
+#header .logo {
+  /* text-shadow: -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 1px 0 rgb(0, 0, 0),
+    0 -1px rgb(0, 0, 0); */
+  font-size: 50px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  font-family: "Cafe24SsurroundAir";
+}
+
+#header .logo a {
+  color: white;
+}
+
+#header .logo a span {
+  color: var(--main-color);
+}
+
+#header .logo img {
+  max-height: 40px;
+}
+@media (max-width: 992px) {
+  #header {
+    padding: 15px;
+    top: 0;
+  }
+  #header .logo {
+    font-size: 28px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/* Desktop Navigation */
+.nav-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-menu > ul {
+  display: flex;
+}
+
+.nav-menu > ul > li {
+  position: relative;
+  white-space: nowrap;
+  padding: 10px 0 10px 28px;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Cafe24SsurroundAir";
+}
+
+.nav-menu a,
+.nav-menu li {
+  /* text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff; */
+  display: block;
+  position: relative;
+  color: white;
+  transition: 0.3s;
+  font-size: 20px;
+  font-weight: 300;
+  padding: 0 3px;
+  font-family: "Cafe24SsurroundAir";
+}
+.icofont-envelope-open {
+  font-size: 30px;
+}
+
+.badge-danger {
+  text-shadow: 0px 0 black, 0 0px black, 0px 0 black, 0 0px black;
+  position: absolute;
+  transform-origin: top right;
+  margin-top: -0.25rem;
+}
+.nav-menu > ul > li > a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--main-color);
+  visibility: hidden;
+  width: 0px;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.nav-menu a:hover:before,
+.nav-menu li:hover > a:before,
+.nav-menu .active > a:before {
+  visibility: visible;
+  width: 100%;
+}
+
+.nav-menu a:hover,
+.nav-menu .active > a,
+.nav-menu li:hover > a {
+  color: var(--main-color);
+}
+
+.nav-menu .drop-down ul {
+  display: block;
+  position: absolute;
+  left: 26px;
+  top: calc(100% + 30px);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  padding: 10px 0;
+  background: #fff;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+  transition: 0.3s;
+}
+
+.nav-menu .drop-down:hover > ul {
+  opacity: 1;
+  top: 100%;
+  visibility: visible;
+}
+
+.nav-menu .drop-down li {
+  min-width: 180px;
+  position: relative;
+}
+
+.nav-menu .drop-down ul a {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+  color: #062b5b;
+}
+
+.nav-menu .drop-down ul a:hover,
+.nav-menu .drop-down ul .active > a,
+.nav-menu .drop-down ul li:hover > a {
+  color: #106eea;
+}
+
+.nav-menu .drop-down > a:after {
+  content: "\ea99";
+  font-family: IcoFont;
+  padding-left: 5px;
+}
+
+.nav-menu .drop-down .drop-down ul {
+  top: 0;
+  left: calc(100% - 30px);
+}
+
+.nav-menu .drop-down .drop-down:hover > ul {
+  opacity: 1;
+  top: 0;
+  left: 100%;
+}
+
+.nav-menu .drop-down .drop-down > a {
+  padding-right: 35px;
+}
+
+.nav-menu .drop-down .drop-down > a:after {
+  content: "\eaa0";
+  font-family: IcoFont;
+  position: absolute;
+  right: 15px;
+}
+
+@media (max-width: 1366px) {
+  .nav-menu .drop-down .drop-down ul {
+    left: -90%;
+  }
+  .nav-menu .drop-down .drop-down:hover > ul {
+    left: -100%;
+  }
+  .nav-menu .drop-down .drop-down > a:after {
+    content: "\ea9d";
+  }
+}
+
+/* Mobile Navigation */
+.mobile-nav-toggle {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  z-index: 9998;
+  border: 0;
+  background: none;
+  font-size: 24px;
+  transition: all 0.4s;
+  outline: none !important;
+  line-height: 1;
+  cursor: pointer;
+  text-align: right;
+}
+
+.mobile-nav-toggle i {
+  color: #222222;
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 55px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
+  z-index: 9999;
+  overflow-y: auto;
+  background: #fff;
+  transition: ease-in-out 0.2s;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 10px;
+  padding: 10px 0;
+}
+
+.mobile-nav * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mobile-nav a {
+  display: block;
+  position: relative;
+  color: #222222;
+  padding: 10px 20px;
+  font-weight: 500;
+  outline: none;
+}
+
+.mobile-nav a:hover,
+.mobile-nav .active > a,
+.mobile-nav li:hover > a {
+  color: #106eea;
+  text-decoration: none;
+}
+
+.mobile-nav .drop-down > a:after {
+  content: "\ea99";
+  font-family: IcoFont;
+  padding-left: 10px;
+  position: absolute;
+  right: 15px;
+}
+
+.mobile-nav .active.drop-down > a:after {
+  content: "\eaa1";
+}
+
+.mobile-nav .drop-down > a {
+  padding-right: 35px;
+}
+
+.mobile-nav .drop-down ul {
+  display: none;
+  overflow: hidden;
+}
+
+.mobile-nav .drop-down li {
+  padding-left: 20px;
+}
+
+.mobile-nav-overly {
+  width: 100%;
+  height: 100%;
+  z-index: 9997;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background: rgba(9, 9, 9, 0.6);
+  overflow: hidden;
+  display: none;
+  transition: ease-in-out 0.2s;
+}
+
+.mobile-nav-active {
+  overflow: hidden;
+}
+
+.mobile-nav-active .mobile-nav {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-active .mobile-nav-toggle i {
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+#hero {
+  width: 100%;
+  height: 15vh;
+  /* background: url("../img/hero-bg3.") top center; */
+  background-size: cover;
+  position: relative;
+  background-repeat: no-repeat;
+}
+
+#hero .container {
+  position: relative;
+  padding-top: 132px;
+}
+
+@media (min-width: 1024px) {
+  #hero {
+    background-attachment: fixed;
+  }
+}
+
+/*--------------------------------------------------------------
+# Featured Services 마이페이지 좌측 탭바
+--------------------------------------------------------------*/
+
+.featured-services .icon-box {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 29px 0 rgba(68, 88, 144, 0.12);
+  border-radius: 8px;
+  z-index: 1;
+  height: 620px;
+}
+.featured-services .icon-box::-webkit-scrollbar {
+  display: none;
+}
+.featured-services .icon-box1::-webkit-scrollbar {
+  display: none;
+}
+.featured-services .icon-box::before {
+  content: "";
+  position: absolute;
+  background: #627ea4;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 0%;
+  transition: all 0.3s;
+  z-index: -1;
+}
+
+/*--------------------------------------------------------------
+# 마이페이지 하얀색 기본 페이지
+--------------------------------------------------------------*/
+.featured-services .icon-box1 {
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 25px;
+  overflow: hidden;
+  box-shadow: 0 0 29px 0 rgba(68, 88, 144, 0.12);
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+/*--------------------------------------------------------------
+# 마이페이지 내 정보
+--------------------------------------------------------------*/
+.featured-services .myinfo_top {
+  text-align: center;
+}
+.featured-services .myinfo_left {
+  width: 50%;
+  float: left;
+  border-right: solid #dbe1e9;
+}
+.featured-services .profile {
+  text-align: center;
+}
+#image_section {
+  width: 200px;
+  height: 200px;
+  border-radius: 50;
+  margin: auto;
+}
+#imgInput {
+  margin-top: 15px;
+}
+.featured-services .myinfo_right {
+  width: 50%;
+  float: right;
+}
+
+.featured-services .con_title {
+  color: #222222;
+  font-weight: 700;
+  font-size: 25px;
+  margin: auto;
+  margin-left: 15px;
+}
+.featured-services .con_title2 {
+  color: #222222;
+  font-weight: 500;
+  font-size: 25px;
+  margin: auto;
+  margin-left: 15px;
+}
+.featured-services .con_nick {
+  color: #222222;
+  font-weight: 700;
+  font-size: 30px;
+  margin: auto;
+}
+.featured-services .con_email {
+  color: #222222;
+  font-weight: 700;
+  font-size: 30px;
+  margin: auto;
+}
+
+.featured-services .pw_con {
+  margin-top: 15px;
+  font-size: 12px;
+}
+.featured-services .pwchange_leave {
+  margin-top: 15px;
+  font-size: 12px;
+  text-align: right;
+}
+.featured-services .pw {
+  display: flex;
+  font-size: 12px;
+  padding: 15px;
+  text-align: center;
+}
+.featured-services .btn-danger,
+.btn-success, .btn-warning {
+  margin: 5px;
+  color: #fff;
+  font-size: 1rem;
+  font-family: "Cafe24SsurroundAir";
+}
+.btn-warning {
+  margin: 5px;
+  color: #fff;
+  font-weight:bold;
+  font-size: 1rem;
+  font-family: "Cafe24SsurroundAir";
+}
+
+.featured-services .RatingStar {
+  font-size: 30px;
+  margin: auto;
+}
+.featured-services .nickname {
+  display: flex;
+  padding: 10px;
+}
+
+.featured-services .trust {
+  display: flex;
+  padding: 10px;
+}
+.featured-services .email {
+  margin-top: 15px;
+  display: flex;
+  padding: 10px;
+}
+
+.inner-star::before {
+  color: #ff9600;
+}
+.outer-star {
+  position: relative;
+  display: inline-block;
+  color: #cccccc;
+}
+.inner-star {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.outer-star::before,
+.inner-star::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 free";
+  font-weight: 900;
+}
+
+.featured-services .icon {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  margin-left: 3px;
+}
+.each {
+  display: flex;
+  border-radius: 25px;
+  cursor: pointer;
+  color: white;
+}
+.left_div{
+  margin: 10px;
+}
+.mypage_list .active {
+  display: flex;
+  border-radius: 25px;
+  cursor: pointer;
+  color: #ffc37b;
+  background: white;
+}
+
+.featured-services .icon i {
+  font-size: 38px;
+  line-height: 1;
+  color: #ffc37b;
+  transition: all 0.3s ease-in-out;
+}
+
+.featured-services .tab_title {
+  font-weight: 700;
+  font-size: 20px;
+  margin: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.featured-services .mypage {
+  font-size: 40px;
+  color: #fff;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: "Jua", sans-serif;
+}
+
+.mypage_list {
+  color: #627ea4;
+}
+.mypage_list:hover {
+  color: #627ea4;
+}
+
+.featured-services ul {
+  list-style: none;
+  padding: 0;
+}
+.featured-services ul li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.featured-services ul i {
+  display: inline-block;
+  background: #fff;
+  box-shadow: 0px 6px 15px rgba(16, 110, 234, 0.12);
+  padding: 10px;
+  border-radius: 50px;
+  align-items: center;
+}
+
+/*--------------------------------------------------------------
+# 마이페이지 내 지갑보기
+--------------------------------------------------------------*/
+.featured-services .cur_coin {
+  background-color: #627ea4;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  width: 85%;
+  margin: 0 auto;
+  min-width: 310px;
+}
+
+.featured-services .coin.won {
+  margin-left: 15px !important;
+}
+.featured-services .coin {
+  color: white;
+  margin: auto;
+  margin-left: 15px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  font-family: "Cafe24SsurroundAir";
+}
+.featured-services .coin2 {
+  color: white;
+  margin: auto;
+  margin-left: 15px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+  font-family: "Cafe24SsurroundAir";
+}
+.featured-services .coin1 {
+  color: #f1cf5d;
+  margin: auto;
+  margin-right: 0;
+  font-weight: 600;
+  font-size: 30px;
+}
+.featured-services .btn-outline-warning {
+  margin: 5px;
+  background-color: rgb(253, 216, 136);
+  color: #444444;
+  font-size: 1rem;
+  font-family: "Cafe24SsurroundAir";
+}
+
+/*****테이블*******/
+.featured-services .bottom {
+  margin-top: 50px;
+}
+
+table.wallet_tb {
+  width: 750px;
+  border-collapse: collapse;
+  line-height: 1.5;
+  border: 1px solid #ccc;
+  margin: 20px 10px;
+  table-layout: fixed;
+}
+table.wallet_tb thead {
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 2px solid #f1cf5d;
+  background: #627ea4;
+  text-align: center;
+}
+table.wallet_tb thead th {
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: middle;
+  color: #fff;
+}
+table.wallet_tb td {
+  padding: 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.off-screen {
+  display: none;
+}
+#nav {
+  width: auto;
+  text-align: center;
+}
+#nav a {
+  display: inline-block;
+  padding: 3px 5px;
+  margin-right: 10px;
+  font-family: Tahoma;
+  background: #ccc;
+  color: #000;
+  text-decoration: none;
+}
+#nav a.active {
+  background: #627ea4;
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# 마이페이지 찜 목록
+--------------------------------------------------------------*/
+.featured-services .like_top {
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.featured-services .total_like {
+  background-color: #627ea4;
+  border-radius: 8px;
+  padding: 5px;
+  min-width: 100px;
+}
+
+/*****테이블*******/
+table.like_tb {
+  border-collapse: collapse;
+  line-height: 1.5;
+  border: 1px solid #cccccc;
+  font-family: "Cafe24SsurroundAir";
+  margin-bottom: 15px;
+  margin-top: 8px;
+}
+
+.likebutton {
+  width: fit-content;
+  height: fit-content;
+  border-radius: 5px;
+  color: red;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.likebutton:hover {
+}
+.active.likebutton:before,
+.active.likebutton:after {
+  color: #444444;
+}
+table.like_tb td {
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center;
+}
+.divider_img {
+  border-bottom: 1px solid #cccccc;
+}
+#item_image {
+  width: 140px;
+  height: 85px;
+  border-radius: 8px;
+  margin-left: 15px;
+  border-bottom: 1px solid #cccccc;
+  cursor: pointer;
+}
+
+table.like_tb .divider {
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+}
+table.like_tb .divider_con {
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  text-align: left;
+  cursor: pointer;
+}
+
+.off-screen {
+  display: none;
+}
+#nav {
+  width: auto;
+  text-align: center;
+}
+#nav a {
+  display: inline-block;
+  padding: 3px 5px;
+  margin-right: 10px;
+  font-family: Tahoma;
+  background: #ccc;
+  color: #000;
+  text-decoration: none;
+  font-family: "Cafe24SsurroundAir";
+}
+#nav a.active {
+  background: #627ea4;
+  color: #fff;
+  font-family: "Cafe24SsurroundAir";
+}
+
+/*--------------------------------------------------------------
+# 마이페이지 중고거래
+--------------------------------------------------------------*/
+.featured-services .trade_top {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+.featured-services .total_trade {
+  background-color: #ccc;
+  border-radius: 10px;
+  padding: 5px;
+  width: 15%;
+  min-width: 50px;
+}
+.featured-services .all_rec {
+  color: white;
+  margin: auto;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+}
+.trade_top .active {
+  background-color: #627ea4;
+}
+.featured-services .total_rec {
+  background-color: #627ea4;
+  border-radius: 8px;
+  padding: 5px;
+  min-width: 100px;
+}
+.featured-services .btn-sm {
+  margin: 3px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-family: "Cafe24SsurroundAir";
+}
+.featured-services .divider_rec {
+  border-left: 3px solid #cccccc;
+}
+
+/*--------------------------------------------------------------
+# 마이페이지 심부름
+--------------------------------------------------------------*/
+.featured-services .errand_top {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+.featured-services .all_rec {
+  color: white;
+  margin: auto;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+}
+.featured-services .total_errand {
+  background-color: #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  min-width: 100px;
+}
+.errand_top .active {
+  background-color: #627ea4;
+}
+.featured-services .btn-sm {
+  margin: 3px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-family: "Cafe24SsurroundAir";
+}
+.featured-services .divider_rec {
+  border-left: 3px solid #cccccc;
+}
+
+/****테이블****/
+table.errand_tb {
+  width: 750px;
+  border-collapse: collapse;
+  line-height: 1.5;
+  border: 1px solid #ccc;
+  margin: 20px 10px;
+  text-align: center;
+  table-layout: fixed;
+}
+table.errand_tb thead {
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 2px solid #f1cf5d;
+  background: #627ea4;
+  text-align: center;
+}
+table.errand_tb thead th {
+  font-weight: bold;
+  vertical-align: middle;
+  color: #fff;
+}
+table.errand_tb td {
+  padding: 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.off-screen {
+  display: none;
+}
+#nav {
+  width: auto;
+  text-align: center;
+}
+.delete {
+  text-align: right;
+  margin-right: 15px;
+  margin-top: -40px;
+}
+#nav a {
+  display: inline-block;
+  padding: 3px 5px;
+  margin-right: 10px;
+  background: #ccc;
+  color: #000;
+  text-decoration: none;
+}
+#nav a.active {
+  background: #627ea4;
+  color: #fff;
+}
+
+.featured-services
+  .custom-control-input:checked
+  ~ .custom-control-label::before {
+  border-color: #f1cf5d;
+  background-color: #627ea4;
+}
+.featured-services .btn-smq {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.575rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+.custom-checkbox{
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding-left: 2rem;
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+}

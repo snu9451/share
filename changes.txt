@@ -1,0 +1,74 @@
+D:\final_proj_1 (SWH2 -> origin)
+λ git st
+On branch SWH2
+Your branch is up to date with 'origin/SWH2'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   final_spring_1/WebContent/WEB-INF/errand-servlet.xml
+        modified:   final_spring_1/WebContent/WEB-INF/member-servlet.xml
+        modified:   final_spring_1/WebContent/WEB-INF/spring-data.xml
+        modified:   final_spring_1/WebContent/WEB-INF/views/member/membertest.jsp
+        modified:   final_spring_1/WebContent/common/alert.js
+        modified:   final_spring_1/WebContent/common/alert_js.jsp
+        modified:   final_spring_1/WebContent/common/assets/js/coinCharge_js.jsp
+        modified:   final_spring_1/WebContent/common/assets/js/header_js.jsp
+        modified:   final_spring_1/WebContent/common/assets/js/join_js.jsp
+        modified:   final_spring_1/WebContent/common/assets/js/login.js
+        modified:   final_spring_1/WebContent/common/assets/js/logout_js.jsp
+        modified:   final_spring_1/WebContent/common/header.jsp
+        modified:   final_spring_1/WebContent/index.jsp
+        modified:   final_spring_1/WebContent/itemPage/detail_page.jsp
+        modified:   final_spring_1/WebContent/itemPage/item_page.jsp
+        modified:   final_spring_1/WebContent/itemPage/main_page_item.jsp
+        modified:   final_spring_1/WebContent/mainPage/assets/css/style.css
+        modified:   final_spring_1/WebContent/mainPage/assets/js/autocomplete_js.jsp
+        modified:   final_spring_1/WebContent/mainPage/assets/js/login.js
+        modified:   final_spring_1/WebContent/mainPage/assets/js/login_js.jsp
+        modified:   final_spring_1/WebContent/mainPage/assets/js/logout_js.jsp
+        modified:   final_spring_1/WebContent/mainPage/assets/js/main_page_js.jsp
+        modified:   final_spring_1/WebContent/mainPage/chatroom-script.jsp
+        modified:   final_spring_1/WebContent/mainPage/chatroom.css
+        modified:   final_spring_1/WebContent/mainPage/chatroom.jsp
+        modified:   final_spring_1/WebContent/mainPage/chatroomList-script.jsp
+        modified:   final_spring_1/WebContent/mainPage/chatroomList.css
+        modified:   final_spring_1/WebContent/mainPage/chatroomList.jsp
+        modified:   final_spring_1/WebContent/mainPage/errand.jsp
+        modified:   final_spring_1/WebContent/mainPage/google_map/src/main.js
+        modified:   final_spring_1/WebContent/mainPage/invalid.jsp
+        modified:   final_spring_1/WebContent/mainPage/memNavbar.jsp
+        modified:   final_spring_1/WebContent/mainPage/source_f.jsp
+        modified:   final_spring_1/WebContent/member/membertest.jsp
+        modified:   final_spring_1/WebContent/myPage/assets/js/myErrand_js.jsp
+        modified:   final_spring_1/WebContent/myPage/assets/js/myInfo_js.jsp
+        modified:   final_spring_1/WebContent/myPage/left_bar.jsp
+        modified:   final_spring_1/WebContent/myPage/myErrand_req_rec_FB.jsp
+        modified:   final_spring_1/build/classes/com/mybatis/mapper/errand.xml
+        modified:   final_spring_1/build/classes/com/mybatis/mapper/member.xml
+        modified:   final_spring_1/build/classes/errand/mvc/ErrandController.class
+        modified:   final_spring_1/build/classes/errand/mvc/ErrandDao.class
+        modified:   final_spring_1/build/classes/errand/mvc/ErrandLogic.class
+        modified:   final_spring_1/build/classes/member/mvc/MemberController.class
+        modified:   final_spring_1/build/classes/member/mvc/MemberDao.class
+        modified:   final_spring_1/build/classes/member/mvc/MemberLogic.class
+        modified:   final_spring_1/build/classes/nds/util/LoginCheckInterceptor.class
+        modified:   final_spring_1/build/classes/nds/util/Mail.class
+        modified:   final_spring_1/src/admin/mvc/AdminController.java
+        modified:   final_spring_1/src/com/mybatis/mapper/errand.xml
+        modified:   final_spring_1/src/com/mybatis/mapper/member.xml
+        modified:   final_spring_1/src/errand/mvc/ErrandController.java
+        modified:   final_spring_1/src/errand/mvc/ErrandDao.java
+        modified:   final_spring_1/src/errand/mvc/ErrandLogic.java
+        modified:   final_spring_1/src/member/mvc/MemberController.java
+        modified:   final_spring_1/src/member/mvc/MemberDao.java
+        modified:   final_spring_1/src/member/mvc/MemberLogic.java
+        modified:   final_spring_1/src/nds/util/LoginCheckInterceptor.java
+        modified:   final_spring_1/src/nds/util/Mail.java
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        final_spring_1/WebContent/mainPage/1.png
+        final_spring_1/WebContent/mainPage/12.png
+
+no changes added to commit (use "git add" and/or "git commit -a")

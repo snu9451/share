@@ -1,0 +1,159 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+
+:root {
+  /* 테마 색깔 */
+  --main-color: #ffc37b;
+  --sub-color: #627ea4;
+
+  /* 한글폰트 */
+  --header-font: "WandohopeB";
+  --main-font: "Cafe24SsurroundAir";
+}
+
+/* 헤더 내동생 이미지 로고 */
+.myBro__logo {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+}
+
+/* 모달 가운데 정렬 */
+
+.modal.modal-center {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal.modal-center:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* map 말풍선 */
+
+.errand_regist {
+  padding: 10px;
+  font-weight: bold;
+  color: black;
+  animation: errand_animate 1000ms ease-in infinite;
+}
+
+@keyframes errand_animate {
+  0% {
+    color: rgb(195, 195, 195);
+  }
+  50% {
+    color: rgb(109, 109, 109);
+  }
+  100% {
+    color: rgb(24, 24, 24);
+  }
+}
+
+/* 경고표시 반짝이는 애니메이션 */
+
+.warn {
+  color: red;
+  animation: warn_animate 1000ms ease-in infinite;
+}
+
+@keyframes warn_animate {
+  0% {
+    color: rgb(255, 163, 163);
+  }
+  50% {
+    color: rgb(255, 94, 94);
+  }
+  100% {
+    color: rgb(255, 59, 59);
+  }
+}
+
+/* 인기상품 왕관 로고 */
+#top__rank {
+  font-size: 1rem;
+  color: yellow;
+  animation: top__rank__animate 2000ms ease-in-out infinite;
+}
+
+@keyframes top__rank__animate {
+  0% {
+    color: rgb(255, 229, 158);
+  }
+  50% {
+    color: rgb(255, 212, 93);
+  }
+  100% {
+    color: rgb(255, 187, 0);
+  }
+}
+
+/* 중고상품 이미지 부분 */
+.pImgBox {
+  height: 326px;
+  width: 326px;
+}
+
+.pImgBox > img {
+  width: auto;
+  height: auto;
+}
+
+/* 중고상품 좋아요 버튼 */
+.likeBtn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.likeBtn > i {
+  transition: all 0.1s ease-out;
+}
+
+.likeBtn:hover > i {
+  transform: scale(1.1);
+  color: red;
+}
+
+.likeBtn:active > i {
+  transform: scale(0.9);
+  color: rgb(255, 139, 139);
+}
+
+.fa-heart {
+  font-size: 2rem;
+}
+
+/* 신고 모달창 파일 input 부분 */
+/* lable 태그의 for 속성을 이용해서 cursor pointer 추가 */
+.custom-file-label {
+  cursor: pointer;
+}
+
+/* 댓글 [[ 답글, 수정, 삭제, 신고 ]] 버튼 */
+.pd__comment__btn {
+  transition: all 0.1s ease-in-out;
+}
+
+.pd__comment__btn:hover {
+  color: var(--sub-color);
+  font-weight: bold;
+}
+
+.pd__comment__btn:active {
+  transform: scale(0.9);
+  color: black;
+}
+
+

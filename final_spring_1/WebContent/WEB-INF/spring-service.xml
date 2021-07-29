@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 	<bean id="item_logic" class="item.mvc.ItemLogic"> -->
+<!-- 		<property name="itemDao" ref="item_dao"/> -->
+<!-- 	</bean> -->
+	<bean id="member-logic" class="member.mvc.MemberLogic">
+		<property name="memberDao" ref="member-dao"/>
+	</bean>
+	<bean id="etc-logic" class="etc.mvc.EtcLogic">
+		<property name="etcDao" ref="etc-dao"/>
+	</bean>
+		<bean id="item_logic" class="item.mvc.ItemLogic">
+		<property name="itemDao" ref="item_dao"/>
+	</bean>
+		<bean id="admin-logic" class="admin.mvc.AdminLogic">
+		<property name="adminDao" ref="admin-dao"/>
+	</bean>
+	<bean id="errand-logic" class="errand.mvc.ErrandLogic">
+		<property name="errandDao" ref="errand-dao"/>
+	</bean>
+</beans>

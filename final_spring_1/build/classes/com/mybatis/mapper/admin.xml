@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.AdminMapper">
+<!-- 회원VO -->
+ <resultMap type="map" id="memberVO">
+  <result column="MEM_CREATE_DATE" property="MEM_CREATE_DATE"/> 
+  <result column="MEM_EMAIL" property="MEM_EMAIL"/> 
+  <result column="MEM_NICKNAME" property="MEM_NICKNAME"/> 
+  <result column="MEM_GENDER" property="MEM_GENDER"/> 
+  <result column="MEM_AGE" property="MEM_AGE"/> 
+ </resultMap>
+ 
+<!-- 신고된 회원VO -->
+ <resultMap type="map" id="report_memVO"> 
+ <!-- 프로시저 안에 select mem.mem_create_date, mem.mem_email, mem.mem_nickname, mem.mem_gender, 
+ 	  mem.mem_age, NVL(rm.mem_count,0) report_count 이므로 report_count로 사용 -->
+<!--   <result column="REPORT_COUNT" property="REPORT_COUNT"/>  -->
+ </resultMap>
+ 
+ <!-- 조인을 위한 회원VO + 신고된회원VO -->
+ <resultMap type="map" id="report_mem_memberVO">
+<!--   <collection property="memberVO" resultMap="memberVO"/> -->
+<!--   <collection property="report_memVO" resultMap="report_memVO"/> -->
+ </resultMap>
+ 
+<!-- 게시글VO -->
+ <resultMap type="map" id="board_masterVO">
+<!--   <result column="BM_NO" property="BM_NO"/>  -->
+<!--   <result column="BM_TITLE" property="BM_TITLE"/>  -->
+<!--   <result column="SELLER_NICKNAME" property="SELLER_NICKNAME"/>  -->
+<!--   <result column="BM_DATE" property="BM_DATE"/>  -->
+<!--   <result column="BM_HIT" property="BM_HIT"/> -->
+ </resultMap>
+ 
+<!-- 신고된 게시글VO -->
+ <resultMap type="map" id="report_boardVO">
+ <!-- 프로시저 안에 bm.BM_NO,bm.BM_TITLE,bm.SELLER_NICKNAME,bm.BM_DATE,bm.BM_HIT,NVL(bs.bm_count,0)  report_count 이므로 report_count로 사용 -->
+<!--   <result column="REPORT_COUNT" property="REPORT_COUNT"/>  -->
+ </resultMap>
+ 
+ <!-- 조인을 위한 게시글VO + 신고된게시글VO -->
+ <resultMap type="map" id="report_board_masterVO">
+<!--   <collection property="board_masterVO" resultMap="board_masterVO"/> -->
+<!--   <collection property="report_boardVO" resultMap="report_boardVO"/> -->
+ </resultMap>
+ <!--전체회원목록조회  -->
+  <select id="member_select" parameterType="java.util.Map" resultType="map">
+SELECT mem.mem_create_date,
+       mem.mem_email,
+       mem.mem_nickname,
+       mem.mem_gender,
+       mem.mem_age,
+       mem.report_count
+  FROM (  SELECT mem.mem_create_date,
+                 mem.mem_email,
+                 mem.mem_nickname,
+                 mem.mem_gender,
+                 mem.mem_age,
+                 NVL (me.mem_count, 0) report_count
+            FROM    MEMBER mem
+                 LEFT OUTER JOIN
+                    (  SELECT mem_email_from, COUNT (*) mem_count
+                         FROM report_mem
+                     GROUP BY mem_email_from) me
+                 ON mem.mem_email = me.mem_email_from
+           WHERE mem.mem_active = 'T'
+        ORDER BY mem.mem_create_date DESC) mem
+ </select>
+ 
+ <!--전체게시글목록조회  -->
+
+  <select id="board_select" resultType="map">
+	SELECT bm.bm_no,
+           bm.bm_title,
+           bm.seller_nickname,
+           bm.bm_date,
+           bm.bm_hit,
+           NVL (me.board_count, 0) report_count
+      FROM    board_master bm
+           LEFT OUTER JOIN
+              (  SELECT bm_no, COUNT (*) board_count
+                   FROM report_board
+               GROUP BY bm_no) me
+           ON bm.bm_no = me.bm_no
+     ORDER BY bm_no desc
+ </select> 
+ 
+ <!-- 신고된 회원 -->
+  <select id="report_member" parameterType="java.util.Map" resultType="map">
+	SELECT rm.report_no,
+           rm.report_type,
+           rm.mem_email_from,
+           rm.mem_email_to,
+           rm.report_msg,
+           rm.report_date
+  	FROM report_mem rm
+ </select> 
+ <!-- 신고된 게시글-->
+  <select id="report_board" parameterType="java.util.Map" resultType="map">
+	SELECT rb.report_no,
+     	   rb.report_type,
+       	   bm.bm_title,
+       	   rb.mem_email,
+       	   rb.report_msg,
+       	   rb.report_date    
+      FROM report_board rb 
+    LEFT OUTER JOIN board_master bm 
+    ON rb.bm_no = bm.bm_no
+    ORDER BY rb.bm_no    
+ </select> 
+ 
+ 
+ 
+<!-- 회원 탈퇴하기(mem_active를 T에서 F로) -->
+ <update id="outMember" parameterType="map">
+  update member
+  set mem_active = 'F'
+  where mem_email=#{mem_email}
+ </update>
+	
+<!-- (회원, 게시글)신고횟수 초기화 시키기 -->
+ <update id="initNumber" parameterType="map">
+  <if test="bm_no!=null">
+	update report_board
+	set report_ishandle = 'T'
+   	where bm_no = #{bm_no}
+  </if>
+  
+  <if test="mem_email!=null">
+	update report_mem
+	set report_ishandle = 'T'
+   	where mem_email_to = #{mem_email}
+  </if>
+ </update>
+ 
+<!-- 회원 검색 --> 
+ <select id="proc_member_all_select" parameterType="java.util.Map">
+  select mem.mem_create_date, mem.mem_email, mem.mem_nickname, mem.mem_gender, mem.mem_age, mem.report_count
+  from (select  mem.mem_create_date, mem.mem_email, mem.mem_nickname, mem.mem_gender, mem.mem_age ,NVL(me.mem_count,0)  report_count
+        from member mem LEFT OUTER JOIN (select mem_email_to, count(*) mem_count from report_mem group by mem_email_to) me 
+        on mem.mem_email=me.mem_email_to order by mem.mem_email desc)mem
+  
+  <!-- {CALL proc_member_all_select(#{nick_email_type}, #{pr_search},
+  
+  							   #{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=report_mem_memberVO})
+  } -->
+ </select>
+
+ 
+<!-- 게시글 검색 -->
+ <select id="proc_board_all_select" statementType="CALLABLE" parameterType="java.util.Map">
+  {CALL proc_board_all_select(#{nick_title_type, mode=IN, jdbcType=VARCHAR}, #{pr_search, mode=IN, jdbcType=VARCHAR},
+  							  #{p_temp, mode=OUT, jdbcType=CURSOR, resultMap=report_board_masterVO})
+  }
+ </select>
+ 
+<!-- 신고된 회원 상세보기 -->
+ <select id="memberReportDetail" parameterType="map" resultType="map">
+  	<!-- 신고번호, 신고한 사용자의 이메일, 신고당한 사용자의 이메일, 신고 내용, 신고 날짜, 신고 유형, 처리여부 -->
+  select report_no, mem_email_from, mem_email_to, report_msg, report_date, report_type, report_ishandle
+  from report_mem 
+  where report_msg=#{report_msg}
+ </select>
+ 
+<!-- 신고된 게시판 상세보기 -->
+ <select id="boardReportDetail" parameterType="map" resultType="map">
+ 	<!-- 신고번호, 신고한 회원 이메일, 신고내용, 신고날짜, 신고유형, 신고당한 게시글 번호, 처리여부 -->
+  select report_no, mem_email, report_msg, report_date, report_type, bm_no, report_ishandle
+  from report_board
+  where report_msg=#{report_msg}
+ </select>
+</mapper>

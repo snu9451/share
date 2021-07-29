@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_281">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mybatis-spring-2.0.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aop-4.3.30.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-4.3.30.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context-4.3.30.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core-4.3.30.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-expression-4.3.30.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-jdbc-4.3.30.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-4.3.30.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-web-4.3.30.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-4.3.30.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mybatis-3.4.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.7.30.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-simple-1.7.30.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/firebase-admin-7.3.0.jar" sourcepath="C:/Users/dngud/.m2/repository/com/google/firebase/firebase-admin/7.3.0/firebase-admin-7.3.0-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/api-common-1.10.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-api-client-1.30.10.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-api-client-gson-1.30.10.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-auth-library-credentials-0.21.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-auth-library-oauth2-http-0.21.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-http-client-1.35.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-http-client-jackson2-1.35.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/guava-29.0-jre.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-core-2.11.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/opencensus-api-0.24.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/opencensus-contrib-http-util-0.24.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/grpc-context-1.22.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/netty-all-4.1.63.Final.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/guava-29.0-android.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/failureaccess-1.0.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cos.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
